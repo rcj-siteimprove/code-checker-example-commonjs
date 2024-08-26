@@ -102,11 +102,12 @@ const assert = require("assert");
       }
     }
 
+    const outcomes = Map.from(outcomesDiff);
     return {
       alfaVersion: current.alfaVersion,
       page: current.page,
-      outcomes: Map.from(outcomesDiff),
-      resultAggregates: current.outcomes
+      outcomes,
+      resultAggregates: outcomes
         .map((ruleOutcomes) =>
           ruleOutcomes.groupBy((outcome) => outcome.outcome),
         )
