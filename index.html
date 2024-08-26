@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Checker Example: SPA</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      .container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+      }
+      .screen {
+        display: none;
+      }
+      .screen.active {
+        display: block;
+      }
+      input[type="text"] {
+        width: calc(100% - 20px);
+        padding: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      button {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #eeeeee;
+      }
+      button#submit {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="screen1" class="screen active">
+        <h2>What's the name of your pet?</h2>
+        <input type="text" id="petName" placeholder="Enter pet's name" />
+        <button onclick="goToNextScreen('screen2')">Next</button>
+      </div>
+
+      <div id="screen2" class="screen">
+        <h2>What's your favorite movie?</h2>
+        <input type="text" id="favMovie" placeholder="Enter favorite movie" />
+        <button onclick="goToNextScreen('screen3')" id="submit">Submit</button>
+      </div>
+
+      <div id="screen3" class="screen">
+        <h2>Summary</h2>
+        <p id="summary"></p>
+        <button onclick="restartSurvey()">Restart</button>
+      </div>
+    </div>
+
+    <script>
+      function goToNextScreen(nextScreenId) {
+        const currentScreen = document.querySelector(".screen.active");
+        currentScreen.classList.remove("active");
+
+        if (nextScreenId === "screen3") {
+          const petName = document.getElementById("petName").value;
+          const favMovie = document.getElementById("favMovie").value;
+          document.getElementById("summary").innerText =
+            `Pet's Name: ${petName}\nFavorite Movie: ${favMovie}`;
+        }
+
+        document.getElementById(nextScreenId).classList.add("active");
+      }
+
+      function restartSurvey() {
+        document.getElementById("petName").value = "";
+        document.getElementById("favMovie").value = "";
+        goToNextScreen("screen1");
+      }
+    </script>
+  </body>
+</html>
